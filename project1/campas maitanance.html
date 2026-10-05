@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus Maintenance System</title>
+</head>
+
+<body>
+
+<center>
+    <h1>Campus Maintenance Reporting System</h1>
+
+    <h2>Submit Complaint</h2>
+
+    <form>
+        Issue Title:
+        <input type="text"><br><br>
+
+        Category:
+        <select>
+            <option>Furniture</option>
+            <option>Electrical</option>
+            <option>Water Leakage</option>
+            <option>Classroom</option>
+            <option>Other</option>
+        </select><br><br>
+
+        Location:
+        <input type="text"><br><br>
+
+        Description:<br>
+        <textarea rows="4" cols="30"></textarea><br><br>
+
+        Priority:
+        <select>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit Complaint">
+    </form>
+
+    <hr>
+
+    <h2>Reported Issues</h2>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Issue</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Priority</th>
+            <th>Status</th>
+        </tr>
+
+        <tr>
+            <td>Broken Chair</td>
+            <td>Furniture</td>
+            <td>Room 101</td>
+            <td>High</td>
+            <td>Pending</td>
+        </tr>
+
+        <tr>
+            <td>Fan Not Working</td>
+            <td>Electrical</td>
+            <td>Room 202</td>
+            <td>Medium</td>
+            <td>In Progress</td>
+        </tr>
+    </table>
+
+    <h2>Statistics</h2>
+
+    <p>Total Issues: 2</p>
+    <p>Pending: 1</p>
+    <p>In Progress: 1</p>
+    <p>Resolved: 0</p>
+
+</center>
+
+</body>
+</html>

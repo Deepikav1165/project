@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus Maintenance Reporting System</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+            background: #f2f2f2;
+        }
+
+        h1 { text-align: center; }
+
+        form, .dashboard {
+            background: white;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 700px;
+            border-radius: 10px;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 7px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #333;
+            color: white;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .issue {
+            background: #eee;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Campus Maintenance Reporting System</h1>
+
+<form id="form">
+    <input id="title" placeholder="Issue Title" required>
+
+    <select id="category">
+        <option>Furniture</option>
+        <option>Electrical</option>
+        <option>Water Leakage</option>
+        <option>Classroom</option>
+        <option>Other</option>
+    </select>
+
+    <input id="location" placeholder="Location" required>
+
+    <textarea id="description" placeholder="Description" required></textarea>
+
+    <select id="priority">
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+    </select>
+
+    <button type="submit">Submit Complaint</button>
+</form>
+
+<div class="dashboard">
+    <h2>Reported Issues</h2>
+
+    <input id="search" placeholder="Search complaints..." onkeyup="display()">
+
+    <div id="issues"></div>
+
+    <h3>Statistics</h3>
+    <p id="stats"></p>
+</div>
+
+<script>
+let complaints = [];
+
+document.getElementById("form").onsubmit = function(e) {
+    e.preventDefault();
+
+    complaints.push({
+        title: title.value,
+        category: category.value,
+        location: location.value,
+        description: description.value,
+        priority: priority.value,
+        status: "Pending"
+    });
+
+    this.reset();
+    display();
+};
+
+function display() {
+    let searchText = search.value.toLowerCase();
+
+    issues.innerHTML = "";
+
+    complaints
+        .filter(x => x.title.toLowerCase().includes(searchText))
+        .forEach((x, i) => {
+            issues.innerHTML += `
+                <div class="issue">
+                    <b>${x.title}</b><br>
+                    Category: ${x.category}<br>
+                    Location: ${x.location}<br>
+                    Description: ${x.description}<br>
+                    Priority: ${x.priority}<br>
+
+                    Status:
+                    <select onchange="changeStatus(${i}, this.value)">
+                        <option ${x.status=="Pending"?"selected":""}>Pending</option>
+                        <option ${x.status=="In Progress"?"selected":""}>In Progress</option>
+                        <option ${x.status=="Resolved"?"selected":""}>Resolved</option>
+                    </select>
+                </div>`;
+        });
+
+    stats.innerHTML =
+        `Total: ${complaints.length} |
+         Pending: ${complaints.filter(x=>x.status=="Pending").length} |
+         In Progress: ${complaints.filter(x=>x.status=="In Progress").length} |
+         Resolved: ${complaints.filter(x=>x.status=="Resolved").length}`;
+}
+
+function changeStatus(i, status) {
+    complaints[i].status = status;
+    display();
+}
+</script>
+
+</body>
+</html>
